@@ -1,11 +1,12 @@
 class Particle {
-    constructor(pos, vel, r = 4) {
+    constructor(pos, vel, c = 'white', r = 4) {
         this.pos = pos;
         this.acc = [0, 0];
         this.vel = vel;
         this.r = r;
         this.children = [];
-        this.exploded = false
+        this.exploded = false;
+        this.c = c;
     }
 
     applyForce(force) {
@@ -21,7 +22,7 @@ class Particle {
     }
 
     show() {
-        point(this.pos[0], this.pos[1], this.r);
+        point(this.pos[0], this.pos[1], this.c, this.r);
     }
 
     explode(n) {
@@ -30,7 +31,7 @@ class Particle {
             this.children.push(new Particle(temp, [
                 random(-3, 3),
                 random(-4, 2)
-            ], 2));
+            ], this.c, 2));
         }
     }
 }
