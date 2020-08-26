@@ -4,8 +4,8 @@ var particles = [],
     drop = 0.5,
     children = [],
     n = 100,              // number of children particles on explosion
-    velMin = 10,
-    velMax = 18;
+    velMin = 0.015,
+    velMax = 0.0275;
 
 var canvas = document.getElementById('canvas'),
     ctx = canvas.getContext('2d');
@@ -42,7 +42,7 @@ function ani() {
     ctx.fillStyle = 'white';
         
     if (Math.random() < freq) {
-        particles.push(new Particle([Math.random() * WIDTH, HEIGHT], [0, -random(velMin, velMax)]));
+        particles.push(new Particle([Math.random() * WIDTH, HEIGHT], [0, -random(HEIGHT * velMin, HEIGHT * velMax)]));
     }
 
     for (var i = 0; i < particles.length; i++) {
@@ -91,8 +91,6 @@ function ani() {
         }
         c.show();
     } */
-
-    log(children.length);
 
     requestAnimationFrame(ani);
 }
