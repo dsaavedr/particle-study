@@ -21,4 +21,11 @@ class Particle {
     show() {
         point(this.pos[0], this.pos[1], this.r);
     }
+
+    explode(n) {
+        var particles = [];
+        for (var i = 0; i < n; i++) {
+
+        }
+    }
 }
