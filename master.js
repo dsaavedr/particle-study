@@ -1,5 +1,6 @@
 var particles = [],
-    gravity = 0.5;
+    freq = 0.1,        // regulates frequency of new particles [0, 1)
+    gravity = 0.3;
 
 var canvas = document.getElementById('canvas'),
     ctx = canvas.getContext('2d');
@@ -56,7 +57,7 @@ function ani() {
     ctx.fillStyle = 'white';
         
     if (Math.random() < .15) {
-        particles.push(new Particle([Math.random() * WIDTH, HEIGHT], [0, -random(15, 25)]));
+        particles.push(new Particle([Math.random() * WIDTH, HEIGHT], [0, -random(10, 18)]));
     }
     for (var i = 0; i < particles.length; i++) {
         var p = particles[i];
