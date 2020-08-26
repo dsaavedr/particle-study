@@ -1,9 +1,11 @@
 class Particle {
-    constructor(pos, vel, r = 5) {
+    constructor(pos, vel, r = 4) {
         this.pos = pos;
         this.acc = [0, 0];
         this.vel = vel;
         this.r = r;
+        this.children = [];
+        this.exploded = false
     }
 
     applyForce(force) {
@@ -23,9 +25,12 @@ class Particle {
     }
 
     explode(n) {
-        var particles = [];
         for (var i = 0; i < n; i++) {
-
+            var temp = this.pos.slice();
+            this.children.push(new Particle(temp, [
+                random(-3, 3),
+                random(-4, 2)
+            ], 2));
         }
     }
 }
