@@ -1,11 +1,11 @@
 var particles = [],
-    freq = 0.03,         // regulates frequency of new particles [0, 1)
+    freq = 0.06,         // regulates frequency of new particles [0, 1)
     gravity = 0.3,
     drop = 0.5,
     children = [],
     n = 100,              // number of children particles on explosion
     velMin = 0.015,
-    velMax = 0.0275;
+    velMax = 0.025;
 
 var canvas = document.getElementById('canvas'),
     ctx = canvas.getContext('2d');
@@ -42,7 +42,7 @@ function ani() {
     ctx.fillStyle = 'white';
         
     if (Math.random() < freq) {
-        particles.push(new Particle([Math.random() * WIDTH, HEIGHT], [0, -random(HEIGHT * velMin, HEIGHT * velMax)]));
+        particles.push(new Particle([Math.random() * WIDTH, HEIGHT], [random(-3, 3), -random(HEIGHT * velMin, HEIGHT * velMax)]));
     }
 
     for (var i = 0; i < particles.length; i++) {
