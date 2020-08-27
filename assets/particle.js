@@ -29,8 +29,8 @@ class Particle {
         for (var i = 0; i < n; i++) {
             var temp = this.pos.slice();
             this.children.push(new Particle(temp, [
-                random(-3, 3),
-                random(-4, 2)
+                random(-4, 4),
+                random(-5, 2)
             ], this.c, 2));
         }
     }
