@@ -78,7 +78,7 @@ function ani() {
     for (var i = 0; i < particles.length; i++) {
         var p = particles[i];
 
-        if (p.pos[1] > HEIGHT + 100) {
+        if (p.pos[1] > HEIGHT + random(100, 200)) {
             particles.splice(i, 1);
             continue;
         }
