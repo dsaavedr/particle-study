@@ -25,6 +25,26 @@ function init() {
         
     canvas.setAttribute('width', WIDTH);
     canvas.setAttribute('height', HEIGHT);
+
+    var counter = 0;
+
+    window.onmousemove = function(e) {
+        var mx = e.clientX,
+            my = e.clientY;
+
+        counter++;
+
+        if (counter % 10 == 0) {
+            particles.push(new Particle([mx, my], [0, 0], HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v)));
+        }
+    };
+
+    canvas.addEventListener('click', function(e) {
+        var mx = e.clientX,
+            my = e.clientY;
+
+        particles.push(new Particle([mx, my], [0, 0], HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v)));
+    })
     
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     ctx.beginPath();
@@ -43,9 +63,15 @@ function ani() {
     ctx.globalAlpha = 0.1;
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
     ctx.restore();
+
+    if (particles.length == 0) {
+        ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    }
+
+    var ct = HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v);
         
     if (Math.random() < freq) {
-        particles.push(new Particle([Math.random() * WIDTH, HEIGHT], [random(-3, 3), -random(HEIGHT * velMin, HEIGHT * velMax)], HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v)));
+        particles.push(new Particle([Math.random() * WIDTH, HEIGHT], [random(-3, 3), -random(HEIGHT * velMin, HEIGHT * velMax)], ct));
         h += colShift;
     }
 
