@@ -29,21 +29,19 @@ function init() {
     var counter = 0;
 
     window.onmousemove = function(e) {
-        var mx = e.clientX,
-            my = e.clientY;
+        var pos = new Vector(e.clientX, e.clientY);
 
         counter++;
 
         if (counter % 10 == 0) {
-            particles.push(new Particle([mx, my], [0, 0], HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v)));
+            particles.push(new Particle(pos, [0, 0], HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v)));
         }
     };
 
     canvas.addEventListener('click', function(e) {
-        var mx = e.clientX,
-            my = e.clientY;
+        var pos = new Vector(e.clientX, e.clientY);
 
-        particles.push(new Particle([mx, my], [0, 0], HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v)));
+        particles.push(new Particle(pos, [0, 0], HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v)));
     })
     
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -71,56 +69,34 @@ function ani() {
     var ct = HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v);
         
     if (Math.random() < freq) {
-        particles.push(new Particle([Math.random() * WIDTH, HEIGHT], [random(-3, 3), -random(HEIGHT * velMin, HEIGHT * velMax)], ct));
+        particles.push(new Particle(new Vector(Math.random() * WIDTH, HEIGHT), new Vector(random(-3, 3), -random(HEIGHT * velMin, HEIGHT * velMax)), ct));
         h += colShift;
     }
 
     for (var i = 0; i < particles.length; i++) {
         var p = particles[i];
 
-        if (p.pos[1] > HEIGHT + random(100, 200)) {
+        if (p.pos.y > HEIGHT + random(100, 200)) {
             particles.splice(i, 1);
             continue;
         }
 
-        p.applyForce([0, gravity]);
+        p.applyForce(new Vector(0, gravity));
         p.update();
 
-        if (p.vel[1] < 0 && !p.exploded) {
+        if (p.vel.y < 0 && !p.exploded) {
             p.show();
         } else if (!p.exploded) {
             p.explode(n);
-            /* for (var j = 0; j < n; j ++) {
-                var temp = p.pos.slice();
-                children.push(new Particle(temp, [
-                    random(-5, 5),
-                    random(-6, 2)
-                ], 2));
-                p.children.push(new Particle(p.pos, [
-                    Math.random() * 6 - 3,
-                    Math.random() * -8
-                ], 2));
-            } */
             p.exploded = true;
         } else {
             for (var j = 0; j < n; j ++) {
-                p.children[j].applyForce([0, gravity * drop]);
+                p.children[j].applyForce(new Vector(0, gravity * drop));
                 p.children[j].update();
                 p.children[j].show();
             }
         }
     }
-
-    /* for (var i = 0; i < children.length; i++) {
-        c = children[i];
-        c.applyForce([0, gravity * drop]);
-        c.update();
-        if (c.pos[1] > HEIGHT) {
-            children.splice(i, 1);
-            continue;
-        }
-        c.show();
-    } */
 
     requestAnimationFrame(ani);
 }
