@@ -42,7 +42,7 @@ function init() {
         var pos = new Vector(e.clientX, e.clientY);
 
         particles.push(new Particle(pos, new Vector(0, 0), HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v)));
-    })
+    });
     
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     ctx.beginPath();
