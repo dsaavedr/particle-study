@@ -33,15 +33,15 @@ function init() {
 
         counter++;
 
-        if (counter % 10 == 0) {
-            particles.push(new Particle(pos, [0, 0], HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v)));
+        if (counter % 20 == 0) {
+            particles.push(new Particle(pos, new Vector(0, 0), HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v)));
         }
     };
 
     canvas.addEventListener('click', function(e) {
         var pos = new Vector(e.clientX, e.clientY);
 
-        particles.push(new Particle(pos, [0, 0], HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v)));
+        particles.push(new Particle(pos, new Vector(0, 0), HSVtoRGB(scale(h%255, 0, 255, 0, 1), s, v)));
     })
     
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
